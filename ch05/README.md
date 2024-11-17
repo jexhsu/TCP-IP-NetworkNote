@@ -46,7 +46,7 @@ while (1)
 
 这个问题其实很容易解决，因为可以提前接受数据的大小。若之前传输了20字节长的字符串，则再接收时循环调用 read 函数读取 20 个字节即可。既然有了解决办法，那么代码如下：
 
-- [echo_client2.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch05/echo_client2.c)
+- [echo_client2.c](echo_client2.c)
 
 这样修改为了接收所有传输数据而循环调用 read 函数。测试及运行结果可参考第四章。
 
@@ -69,8 +69,8 @@ while (1)
 
 我自己的实现：
 
-- [My_op_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch05/My_op_server.c)
-- [My_op_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch05/My_op_client.c)
+- [My_op_server.c](My_op_server.c)
+- [My_op_client.c](My_op_client.c)
 
 编译：
 
@@ -87,8 +87,8 @@ gcc My_op_server.c -o myserver
 
 书上的实现：
 
-- [op_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch05/op_client.c)
-- [op_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch05/op_server.c)
+- [op_client.c](op_client.c)
+- [op_server.c](op_server.c)
 
 阅读代码要注意一下，`int*`与`char`之间的转换。TCP 中不存在数据边界。
 
