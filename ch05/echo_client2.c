@@ -42,6 +42,8 @@ int main(int argc, char *argv[])
 
         if (!strcmp(message, "q\n") || !strcmp(message, "Q\n"))
             break;
+
+        // 提供了更加健壮的接收处理，适用于可能会分多次发送的数据, 确保客户端可以接收完整的消息
         str_len = write(sock, message, strlen(message));
 
         recv_len = 0;

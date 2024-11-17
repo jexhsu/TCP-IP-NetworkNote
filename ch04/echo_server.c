@@ -8,6 +8,7 @@
 #define BUF_SIZE 1024
 void error_handling(char *message);
 
+// 阻塞调用，服务器必须等待当前客户端断开连接后，才能继续接收下一个客户端的连接。
 int main(int argc, char *argv[])
 {
     int serv_sock, clnt_sock;
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
         error_handling("listen() error");
 
     clnt_adr_sz = sizeof(clnt_adr);
-    //调用 5 次 accept 函数，共为 5 个客户端提供服务
+    // 调用 5 次 accept 函数，共为 5 个客户端提供服务
     for (i = 0; i < 5; i++)
     {
         clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &clnt_adr_sz);
