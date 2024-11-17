@@ -86,7 +86,7 @@ accept 函数受理连接请求队列中待处理的客户端连接请求。函�
 
 #### 4.2.4 回顾 Hello World 服务端
 
-- 代码：[hello_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch04/hello_server.c)
+- 代码：[hello_server.c](hello_server.c)
 
 重新整理一下代码的思路
 
@@ -124,7 +124,7 @@ addrlen: 第二个结构体参数 servaddr 变量的字节长度
 
 #### 4.2.6 回顾 Hello World 客户端
 
-- 代码：[hello_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch04/hello_client.c)
+- 代码：[hello_client.c](hello_client.c)
 
 重新理解这个程序：
 
@@ -167,8 +167,8 @@ addrlen: 第二个结构体参数 servaddr 变量的字节长度
 
 以下是服务端与客户端的代码：
 
-- [echo_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch04/echo_server.c)
-- [echo_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch04/echo_client.c)
+- [echo_server.c](echo_server.c)
+- [echo_client.c](echo_client.c)
 
 编译:
 
