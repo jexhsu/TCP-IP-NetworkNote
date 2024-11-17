@@ -200,7 +200,7 @@ unsigned long ntohl(unsigned long);
 
 下面的代码是示例，说明以上函数调用过程：
 
-[endian_conv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch03/endian_conv.c)
+[endian_conv.c](endian_conv.c)
 
 ```cpp
 #include <stdio.h>
@@ -256,7 +256,7 @@ in_addr_t inet_addr(const char *string);
 
 具体示例：
 
-[inet_addr.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch03/inet_addr.c)
+[inet_addr.c](inet_addr.c)
 
 ```c
 #include <stdio.h>
@@ -311,7 +311,7 @@ addr: 保存转换结果的 in_addr 结构体变量的地址值
 
 函数调用示例：
 
-[inet_aton.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch03/inet_aton.c)
+[inet_aton.c](inet_aton.c)
 
 ```c
 #include <stdio.h>
@@ -366,7 +366,7 @@ char *inet_ntoa(struct in_addr adr);
 
 示例：
 
-[inet_ntoa.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch03/inet_ntoa.c)
+[inet_ntoa.c](inet_ntoa.c)
 
 ```c
 #include <stdio.h>
