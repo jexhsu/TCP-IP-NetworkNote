@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     str_len = read(sock, message, BUF_SIZE - 1);
     message[str_len] = 0;
     printf("运算的结果是: %s\n", message);
+    close(sock);
     return 0;
 }
 void error_handling(char *message)
