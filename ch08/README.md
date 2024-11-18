@@ -63,7 +63,7 @@ struct hostent
 
 下面的代码通过一个例子来演示 gethostbyname 的应用，并说明 hostent 结构体变量特性。
 
-- [gethostbyname.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch08/gethostbyname.c)
+- [gethostbyname.c](gethostbyname.c)
 
 编译运行：
 
@@ -116,7 +116,7 @@ family: 传递地址族信息，ipv4 是 AF_INET ，IPV6是 AF_INET6
 
 下面的代码演示使用方法：
 
-- [gethostbyaddr.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch08/gethostbyaddr.c)
+- [gethostbyaddr.c](gethostbyaddr.c)
 
 编译运行：
 
