@@ -74,8 +74,8 @@ howto: 传递断开方式信息
 
 下面的代码为编程简便，省略了大量错误处理代码。
 
-- [file_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch07/file_client.c)
-- [file_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch07/file_server.c)
+- [file_client.c](file_client.c)
+- [file_server.c](file_server.c)
 
 编译运行：
 
