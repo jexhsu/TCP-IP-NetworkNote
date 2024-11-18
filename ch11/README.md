@@ -1,6 +1,6 @@
 ## 第 11 章 进程间通信
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 进程间通信，意味着两个不同的进程中可以交换数据
 
@@ -26,7 +26,7 @@ filedes[1]: 通过管道传输数据时使用的文件描述符，即管道入�
 
 父进程调用函数时将创建管道，同时获取对应于出入口的文件描述符，此时父进程可以读写同一管道。但父进程的目的是与子进程进行数据交换，因此需要将入口或出口中的 1 个文件描述符传递给子进程。下面的例子是关于该函数的使用方法：
 
-- [pipe1.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch11/pipe1.c)
+- [pipe1.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/pipe1.c)
 
 ```c
 #include <stdio.h>
@@ -80,7 +80,7 @@ Who are you?
 
 下面是双向通信的示例：
 
-- [pipe2.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch11/pipe2.c)
+- [pipe2.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/pipe2.c)
 
 ```c
 #include <stdio.h>
@@ -130,7 +130,7 @@ Parent proc output: Who are you?
 Child proc output: Thank you for your message
 ```
 
-运行结果是正确的，但是如果注释掉第18行的代码，就会出现问题，导致一直等待下去。因为数据进入管道后变成了无主数据。也就是通过 read 函数先读取数据的进程将得到数据，即使该进程将数据传到了管道。因为，注释第18行会产生问题。第19行，自己成将读回自己在第 17 行向管道发送的数据。结果父进程调用 read 函数后，无限期等待数据进入管道。
+运行结果是正确的，但是如果注释掉第 18 行的代码，就会出现问题，导致一直等待下去。因为数据进入管道后变成了无主数据。也就是通过 read 函数先读取数据的进程将得到数据，即使该进程将数据传到了管道。因为，注释第 18 行会产生问题。第 19 行，自己成将读回自己在第 17 行向管道发送的数据。结果父进程调用 read 函数后，无限期等待数据进入管道。
 
 当一个管道不满足需求时，就需要创建两个管道，各自负责不同的数据流动，过程如下图所示：
 
@@ -138,7 +138,7 @@ Child proc output: Thank you for your message
 
 下面采用上述模型改进 `pipe2.c` 。
 
-- [pipe3.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch11/pipe3.c)
+- [pipe3.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/pipe3.c)
 
 ```c
 #include <stdio.h>
@@ -177,13 +177,13 @@ int main(int argc, char *argv[])
 
 #### 11.2.1 保存消息的回声服务器
 
-下面对第 10 章的 [echo_mpserv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/echo_mpserv.c) 进行改进，添加一个功能：
+下面对第 10 章的 [echo_mpserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpserv.c) 进行改进，添加一个功能：
 
 > 将回声客户端传输的字符串按序保存到文件中
 
 实现该任务将创建一个新进程，从向客户端提供服务的进程读取字符串信息，下面是代码：
 
-- [echo_storeserv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch11/echo_storeserv.c)
+- [echo_storeserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/echo_storeserv.c)
 
 编译运行：
 
@@ -192,13 +192,13 @@ gcc echo_storeserv.c -o serv
 ./serv 9190
 ```
 
-此服务端配合第 10 章的客户端 [echo_mpclient.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c) 使用，运行结果如下图:
+此服务端配合第 10 章的客户端 [echo_mpclient.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c) 使用，运行结果如下图:
 
 ![](https://s2.ax1x.com/2019/01/22/kFUCct.png)
 
 ![](https://s2.ax1x.com/2019/01/22/kFUAHS.png)
 
-从图上可以看出，服务端已经生成了文件，把客户端的消息保存可下来，只保存了10次消息。
+从图上可以看出，服务端已经生成了文件，把客户端的消息保存可下来，只保存了 10 次消息。
 
 ### 11.3 习题
 
@@ -218,7 +218,7 @@ gcc echo_storeserv.c -o serv
 
       答：使用 pipe 函数进行创建，由操作系统创建。父进程调用该函数时将创建管道。
 
-   2. **为了完成进程间通信。2 个进程要同时连接管道。那2 个进程如何连接到同一管道？**
+   2. **为了完成进程间通信。2 个进程要同时连接管道。那 2 个进程如何连接到同一管道？**
 
       答：数组中有两个文件描述符，父子进程调用相关函数时，通过 fork 函数，把 1 个文件描述符传递给子进程。
 

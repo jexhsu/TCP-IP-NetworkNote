@@ -1,6 +1,6 @@
 ## 第 12 章 I/O 复用
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 12.1 基于 I/O 复用的服务器端
 
@@ -75,13 +75,13 @@ select 函数的使用方法与一般函数的区别并不大，更准确的说�
 
 利用 select 函数可以同时监视多个文件描述符。当然，监视文件描述符可以视为监视套接字。此时首先需要将要监视的文件描述符集中在一起。集中时也要按照监视项（接收、传输、异常）进行区分，即按照上述 3 种监视项分成 3 类。
 
-利用 fd_set 数组变量执行此操作，如图所示，该数组是存有0和1的位数组。
+利用 fd_set 数组变量执行此操作，如图所示，该数组是存有 0 和 1 的位数组。
 
 ![](https://s2.ax1x.com/2019/01/23/kAt2i4.png)
 
 图中最左端的位表示文件描述符 0（所在位置）。如果该位设置为 1，则表示该文件描述符是监视对象。那么图中哪些文件描述符是监视对象呢？很明显，是描述符 1 和 3。在 fd_set 变量中注册或更改值的操作都由下列宏完成。
 
-- `FD_ZERO(fd_set *fdset)`：将 fd_set 变量所指的位全部初始化成0
+- `FD_ZERO(fd_set *fdset)`：将 fd_set 变量所指的位全部初始化成 0
 - `FD_SET(int fd,fd_set *fdset)`：在参数 fdset 指向的变量中注册文件描述符 fd 的信息
 - `FD_CLR(int fd,fd_set *fdset)`：从参数 fdset 指向的变量中清除文件描述符 fd 的信息
 - `FD_ISSET(int fd,fd_set *fdset)`：若参数 fdset 指向的变量中包含文件描述符 fd 的信息，则返回「真」
@@ -142,7 +142,7 @@ select 返回正整数时，怎样获知哪些文件描述符发生了变化？�
 
 下面是一个 select 函数的例子：
 
-- [select.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch12/select.c)
+- [select.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch12/select.c)
 
 编译运行：
 
@@ -161,7 +161,7 @@ gcc select.c -o select
 
 下面通过 select 函数实现 I/O 复用服务器端。下面是基于 I/O 复用的回声服务器端。
 
-- [echo_selectserv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch12/echo_selectserv.c)
+- [echo_selectserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch12/echo_selectserv.c)
 
 编译运行：
 
@@ -186,15 +186,15 @@ gcc echo_selectserv.c -o selserv
 
 1. **请解释复用技术的通用含义，并说明何为 I/O 复用。**
 
-   答：通用含义：在 1 个通信频道中传递多个数据（信号）的技术。IO复用就是进程预先告诉内核需要监视的IO条件，使得内核一旦发现进程指定的一个或多个IO条件就绪，就通过进程进程处理，从而不会在单个IO上阻塞了。
+   答：通用含义：在 1 个通信频道中传递多个数据（信号）的技术。IO 复用就是进程预先告诉内核需要监视的 IO 条件，使得内核一旦发现进程指定的一个或多个 IO 条件就绪，就通过进程进程处理，从而不会在单个 IO 上阻塞了。
 
-   参考文章：[Linux网络编程-IO复用技术](https://www.cnblogs.com/luoxn28/p/6220372.html)
+   参考文章：[Linux 网络编程-IO 复用技术](https://www.cnblogs.com/luoxn28/p/6220372.html)
 
 2. **多进程并发服务器的缺点有哪些？如何在 I/O 复用服务器中弥补？**
 
    答：多进程需要进行大量的运算和大量的内存空间。在 I/O 复用服务器中通过 select 函数监视文件描述符，通过判断变化的文件描述符，来得知变化的套接字是哪个，从而实时应答来自多个客户端的请求。
 
-3. **复用服务器端需要 select 函数。下列关于 select  函数使用方法的描述错误的是？**
+3. **复用服务器端需要 select 函数。下列关于 select 函数使用方法的描述错误的是？**
 
    答：以下加粗的为正确的描述。
 

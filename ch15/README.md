@@ -1,6 +1,6 @@
-## 第 15 章 套接字和标准I/O
+## 第 15 章 套接字和标准 I/O
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 15.1 标准 I/O 的优点
 
@@ -24,18 +24,18 @@
 
 比较 1 个字节的数据发送 10 次的情况和 10 个字节发送 1 次的情况。发送数据时，数据包中含有头信息。头信与数据大小无关，是按照一定的格式填入的。假设头信息占 40 个字节，需要传输的数据量也存在较大区别：
 
-- 1 个字节 10 次：40*10=400 字节
-- 10个字节 1 次：40*1=40 字节。
+- 1 个字节 10 次：40\*10=400 字节
+- 10 个字节 1 次：40\*1=40 字节。
 
 #### 15.1.2 标准 I/O 函数和系统函数之间的性能对比
 
 下面是利用系统函数的示例：
 
-- [syscpy.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch15/syscpy.c)
+- [syscpy.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/syscpy.c)
 
 下面是使用标准 I/O 函数复制文件
 
-- [stdcpy.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch15/stdcpy.c)
+- [stdcpy.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/stdcpy.c)
 
 对于以上两个代码进行测试，明显基于标准 I/O 函数的代码跑的更快
 
@@ -65,7 +65,7 @@ mode ： 将要创建的 FILE 结构体指针的模式信息
 
 以下为示例：
 
-- [desto.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch15/desto.c)
+- [desto.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/desto.c)
 
 ```c
 #include <stdio.h>
@@ -115,7 +115,7 @@ int fileno(FILE *stream);
 
 示例：
 
-- [todes.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch15/todes.c)
+- [todes.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/todes.c)
 
 ```c
 #include <stdio.h>
@@ -146,8 +146,8 @@ int main()
 
 代码如下：
 
-- [echo_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch15/echo_client.c)
-- [echo_stdserv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch15/echo_stdserv.c)
+- [echo_client.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/echo_client.c)
+- [echo_stdserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/echo_stdserv.c)
 
 编译运行：
 
@@ -168,7 +168,7 @@ gcc echo_stdserv.c -o eserver
 
 1. **请说明标准 I/O 的 2 个优点。他为何拥有这 2 个优点？**
 
-   答：①具有很高的移植性②有良好的缓冲提高性能。因为这些函数是由 ANSI C 标准定义的。适合所有编程领域。
+   答：① 具有很高的移植性 ② 有良好的缓冲提高性能。因为这些函数是由 ANSI C 标准定义的。适合所有编程领域。
 
 2. **利用标准 I/O 函数传输数据时，下面的说法是错误的**：
 

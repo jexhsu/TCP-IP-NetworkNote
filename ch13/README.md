@@ -1,6 +1,6 @@
 ## 第 13 章 多种 I/O 函数
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 13.1 send & recv 函数
 
@@ -38,20 +38,20 @@ send 和 recv 函数的最后一个参数是收发数据的可选项，该选项
 
 send & recv 函数的可选项意义：
 
-| 可选项（Option） | 含义                                                         | send | recv |
-| ---------------- | ------------------------------------------------------------ | ---- | ---- |
-| MSG_OOB          | 用于传输带外数据（Out-of-band data）                         | O    | O    |
-| MSG_PEEK         | 验证输入缓冲中是否存在接受的数据                             | X    | O    |
+| 可选项（Option） | 含义                                                                       | send | recv |
+| ---------------- | -------------------------------------------------------------------------- | ---- | ---- |
+| MSG_OOB          | 用于传输带外数据（Out-of-band data）                                       | O    | O    |
+| MSG_PEEK         | 验证输入缓冲中是否存在接受的数据                                           | X    | O    |
 | MSG_DONTROUTE    | 数据传输过程中不参照本地路由（Routing）表，在本地（Local）网络中寻找目的地 | O    | X    |
-| MSG_DONTWAIT     | 调用 I/O 函数时不阻塞，用于使用非阻塞（Non-blocking）I/O     | O    | O    |
-| MSG_WAITALL      | 防止函数返回，直到接收到全部请求的字节数                     | X    | O    |
+| MSG_DONTWAIT     | 调用 I/O 函数时不阻塞，用于使用非阻塞（Non-blocking）I/O                   | O    | O    |
+| MSG_WAITALL      | 防止函数返回，直到接收到全部请求的字节数                                   | X    | O    |
 
 #### 13.1.2 MSG_OOB：发送紧急消息
 
 MSG_OOB 可选项用于创建特殊发送方法和通道以发送紧急消息。下面为 MSG_OOB 的示例代码：
 
-- [oob_recv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch13/oob_recv.c)
-- [oob_send.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch13/oob_send.c)
+- [oob_recv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/oob_recv.c)
+- [oob_send.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/oob_send.c)
 
 编译运行：
 
@@ -113,7 +113,7 @@ send(sock, "890", strlen("890"), MSG_OOB);
 TCP 数据包实际包含更多信息。TCP 头部包含如下两种信息：
 
 - URG=1：载有紧急消息的数据包
-- URG指针：紧急指针位于偏移量为 3 的位置。
+- URG 指针：紧急指针位于偏移量为 3 的位置。
 
 指定 MSG_OOB 选项的数据包本身就是紧急数据包，并通过紧急指针表示紧急消息所在的位置。
 
@@ -123,8 +123,8 @@ TCP 数据包实际包含更多信息。TCP 头部包含如下两种信息：
 
 同时设置 MSG_PEEK 选项和 MSG_DONTWAIT 选项，以验证输入缓冲是否存在接收的数据。设置 MSG_PEEK 选项并调用 recv 函数时，即使读取了输入缓冲的数据也不会删除。因此，该选项通常与 MSG_DONTWAIT 合作，用于以非阻塞方式验证待读数据存在与否。下面的示例是二者的含义：
 
-- [peek_recv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch13/peek_recv.c)
-- [peek_send.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch13/peek_send.c)
+- [peek_recv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/peek_recv.c)
+- [peek_send.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/peek_send.c)
 
 编译运行：
 
@@ -180,7 +180,7 @@ writev 的第一个参数，是文件描述符，因此向控制台输出数据�
 
 下面是 writev 函数的使用方法：
 
-- [writev.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch13/writev.c)
+- [writev.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/writev.c)
 
 ```c
 #include <stdio.h>
@@ -233,7 +233,7 @@ iovcnt: 第二个参数中数组的长度
 
 下面是示例代码：
 
-- [readv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch13/readv.c)
+- [readv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/readv.c)
 
 ```c
 #include <stdio.h>
@@ -293,7 +293,6 @@ gcc readv.c -o rv
 ### 13.4 习题
 
 > 以下答案仅代表本人个人观点，可能不是正确答案。
->
 
 1. **下列关于 MSG_OOB 可选项的说法错误的是**？
 

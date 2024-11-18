@@ -1,6 +1,6 @@
 ## 第 9 章 套接字的多种可选项
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 9.1 套接字可选项和 I/O 缓冲大小
 
@@ -10,8 +10,8 @@
 
 我们之前写得程序都是创建好套接字之后直接使用的，此时通过默认的套接字特性进行数据通信，这里列出了一些套接字可选项。
 
-| 协议层 | 选项名 | 读取 | 设置 |
-| :----: | :----: |:--: | :--: |
+|   协议层    |      选项名       | 读取 | 设置 |
+| :---------: | :---------------: | :--: | :--: |
 | SOL_SOCKET  |     SO_SNDBUF     |  O   |  O   |
 | SOL_SOCKET  |     SO_RCVBUF     |  O   |  O   |
 | SOL_SOCKET  |   SO_REUSEADDR    |  O   |  O   |
@@ -32,7 +32,7 @@
 
 从表中可以看出，套接字可选项是分层的。
 
-- IPPROTO_IP 可选项是IP协议相关事项
+- IPPROTO_IP 可选项是 IP 协议相关事项
 
 - IPPROTO_TCP 层可选项是 TCP 协议的相关事项
 
@@ -74,7 +74,7 @@ optlen: 向第四个参数传递的缓冲大小。调用函数后，该变量中
 
 下面的代码可以看出 getsockopt 的使用方法。下面示例用协议层为 SOL_SOCKET 、名为 SO_TYPE 的可选项查看套接字类型（TCP 和 UDP ）。
 
-- [sock_type.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch09/sock_type.c)
+- [sock_type.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch09/sock_type.c)
 
 编译运行：
 
@@ -102,7 +102,7 @@ Socket type two: 2
 
 SO_RCVBUF 是输入缓冲大小相关可选项，SO_SNDBUF 是输出缓冲大小相关可选项。用这 2 个可选项既可以读取当前 I/O 大小，也可以进行更改。通过下列示例读取创建套接字时默认的 I/O 缓冲大小。
 
-- [get_buf.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch09/get_buf.c)
+- [get_buf.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch09/get_buf.c)
 
 编译运行：
 
@@ -122,7 +122,7 @@ Output buffer size: 16384
 
 下面的代码演示了，通过程序设置 I/O 缓冲区的大小
 
-- [set_buf.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch09/set_buf.c)
+- [set_buf.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch09/set_buf.c)
 
 编译运行：
 
@@ -146,9 +146,9 @@ Output buffer size: 6144
 
 在学习 SO_REUSEADDR 可选项之前，应该好好理解 Time-wait 状态。看以下代码的示例：
 
-- [reuseadr_eserver.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch09/reuseadr_eserver.c)
+- [reuseadr_eserver.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch09/reuseadr_eserver.c)
 
-这是一个回声服务器的服务端代码，可以配合第四章的 [echo_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch04/echo_client.c) 使用，在这个代码中，客户端通知服务器终止程序。在客户端控制台输入 Q 可以结束程序，向服务器发送 FIN 消息并经过四次握手过程。当然，输入 CTRL+C 也会向服务器传递 FIN 信息。强制终止程序时，由操作系统关闭文件套接字，此过程相当于调用 close 函数，也会向服务器发送 FIN 消息。
+这是一个回声服务器的服务端代码，可以配合第四章的 [echo_client.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch04/echo_client.c) 使用，在这个代码中，客户端通知服务器终止程序。在客户端控制台输入 Q 可以结束程序，向服务器发送 FIN 消息并经过四次握手过程。当然，输入 CTRL+C 也会向服务器传递 FIN 信息。强制终止程序时，由操作系统关闭文件套接字，此过程相当于调用 close 函数，也会向服务器发送 FIN 消息。
 
 这样看不到是什么特殊现象，考虑以下情况：
 
@@ -174,9 +174,9 @@ Time-wait 状态看似重要，但是不一定讨人喜欢。如果系统发生�
 
 ![](https://i.loli.net/2019/01/19/5c42dec2ba42b.png)
 
-从图上可以看出，在主机 A 四次握手的过程中，如果最后的数据丢失，则主机 B 会认为主机 A 未能收到自己发送的 FIN 信息，因此重传。这时，收到的 FIN 消息的主机 A 将重启  Time-wait 计时器。因此，如果网络状况不理想， Time-wait 将持续。
+从图上可以看出，在主机 A 四次握手的过程中，如果最后的数据丢失，则主机 B 会认为主机 A 未能收到自己发送的 FIN 信息，因此重传。这时，收到的 FIN 消息的主机 A 将重启 Time-wait 计时器。因此，如果网络状况不理想， Time-wait 将持续。
 
-解决方案就是在套接字的可选项中更改 SO_REUSEADDR 的状态。适当调整该参数，可将 Time-wait 状态下的套接字端口号重新分配给新的套接字。SO_REUSEADDR 的默认值为 0.这就意味着无法分配 Time-wait 状态下的套接字端口号。因此需要将这个值改成 1 。具体作法已在示例 [reuseadr_eserver.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch09/reuseadr_eserver.c) 给出，只需要把注释掉的东西解除注释即可。
+解决方案就是在套接字的可选项中更改 SO_REUSEADDR 的状态。适当调整该参数，可将 Time-wait 状态下的套接字端口号重新分配给新的套接字。SO_REUSEADDR 的默认值为 0.这就意味着无法分配 Time-wait 状态下的套接字端口号。因此需要将这个值改成 1 。具体作法已在示例 [reuseadr_eserver.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch09/reuseadr_eserver.c) 给出，只需要把注释掉的东西解除注释即可。
 
 ```c
 optlen = sizeof(option);
@@ -200,7 +200,7 @@ setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (void *)&option, optlen);
 
 TCP 套接字默认使用 `Nagle` 算法交换数据，因此最大限度的进行缓冲，直到收到 ACK 。左图也就是说一共传递 4 个数据包以传输一个字符串。从右图可以看出，发送数据包一共使用了 10 个数据包。由此可知，不使用 `Nagle` 算法将对网络流量产生负面影响。即使只传输一个字节的数据，其头信息都可能是几十个字节。因此，为了提高网络传输效率，必须使用 `Nagle` 算法。
 
- `Nagle` 算法并不是什么情况下都适用，网络流量未受太大影响时，不使用 `Nagle` 算法要比使用它时传输速度快。最典型的就是「传输大文数据」。将文件数据传入输出缓冲不会花太多时间，因此，不使用 `Nagle` 算法，也会在装满输出缓冲时传输数据包。这不仅不会增加数据包的数量，反而在无需等待 ACK 的前提下连续传输，因此可以大大提高传输速度。
+`Nagle` 算法并不是什么情况下都适用，网络流量未受太大影响时，不使用 `Nagle` 算法要比使用它时传输速度快。最典型的就是「传输大文数据」。将文件数据传入输出缓冲不会花太多时间，因此，不使用 `Nagle` 算法，也会在装满输出缓冲时传输数据包。这不仅不会增加数据包的数量，反而在无需等待 ACK 的前提下连续传输，因此可以大大提高传输速度。
 
 所以，未准确判断数据性质时不应禁用 `Nagle` 算法。
 
@@ -222,7 +222,7 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void *)&opt_val, &opt_len);
 
 如果正在使用`Nagle` 算法，那么 opt_val 值为 0，如果禁用则为 1.
 
-关于这个算法，可以参考这个回答：[TCP连接中启用和禁用TCP_NODELAY有什么影响？](https://www.zhihu.com/question/42308970/answer/246334766)
+关于这个算法，可以参考这个回答：[TCP 连接中启用和禁用 TCP_NODELAY 有什么影响？](https://www.zhihu.com/question/42308970/answer/246334766)
 
 ### 9.4 基于 Windows 的实现
 

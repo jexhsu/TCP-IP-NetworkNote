@@ -1,6 +1,6 @@
 ## 第 18 章 多线程服务器端的实现
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 18.1 理解线程的概念
 
@@ -50,13 +50,13 @@
 
 ### 18.2 线程创建及运行
 
-可移植操作系统接口（英语：Portable Operating System Interface，缩写为POSIX）是IEEE为要在各种UNIX操作系统上运行软件，而定义API的一系列互相关联的标准的总称，其正式称呼为IEEE Std 1003，而国际标准名称为ISO/IEC 9945。此标准源于一个大约开始于1985年的项目。POSIX这个名称是由理查德·斯托曼（RMS）应IEEE的要求而提议的一个易于记忆的名称。它基本上是Portable Operating System Interface（可移植操作系统接口）的缩写，而X则表明其对Unix API的传承。
+可移植操作系统接口（英语：Portable Operating System Interface，缩写为 POSIX）是 IEEE 为要在各种 UNIX 操作系统上运行软件，而定义 API 的一系列互相关联的标准的总称，其正式称呼为 IEEE Std 1003，而国际标准名称为 ISO/IEC 9945。此标准源于一个大约开始于 1985 年的项目。POSIX 这个名称是由理查德·斯托曼（RMS）应 IEEE 的要求而提议的一个易于记忆的名称。它基本上是 Portable Operating System Interface（可移植操作系统接口）的缩写，而 X 则表明其对 Unix API 的传承。
 
-Linux基本上逐步实现了POSIX兼容，但并没有参加正式的POSIX认证。
+Linux 基本上逐步实现了 POSIX 兼容，但并没有参加正式的 POSIX 认证。
 
-微软的Windows NT声称部分实现了POSIX标准。
+微软的 Windows NT 声称部分实现了 POSIX 标准。
 
-当前的POSIX主要分为四个部分：Base Definitions、System Interfaces、Shell and Utilities和Rationale。
+当前的 POSIX 主要分为四个部分：Base Definitions、System Interfaces、Shell and Utilities 和 Rationale。
 
 #### 18.2.1 线程的创建和执行流程
 
@@ -80,7 +80,7 @@ arg : 通过第三个参数传递的调用函数时包含传递参数信息的�
 
 下面通过简单示例了解该函数功能：
 
-- [thread1.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/thread1.c)
+- [thread1.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/thread1.c)
 
 ```c
 #include <stdio.h>
@@ -146,7 +146,7 @@ status : 保存线程的 main 函数返回值的指针的变量地址值
 
 作用就是调用该函数的进程（或线程）将进入等待状态，知道第一个参数为 ID 的线程终止为止。而且可以得到线程的 main 函数的返回值。下面是该函数的用法代码：
 
-- [thread2.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/thread2.c)
+- [thread2.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/thread2.c)
 
 ```c
 #include <stdio.h>
@@ -194,7 +194,7 @@ void *thread_main(void *arg) //传入的参数是 pthread_create 的第四个
 编译运行：
 
 ```shell
-gcc thread2.c -o tr2 -lpthread 
+gcc thread2.c -o tr2 -lpthread
 ./tr2
 ```
 
@@ -202,7 +202,7 @@ gcc thread2.c -o tr2 -lpthread
 
 ![](https://i.loli.net/2019/02/02/5c55bd6032f1e.png)
 
-可以看出，线程输出了5次字符串，并且把返回值给了主进程
+可以看出，线程输出了 5 次字符串，并且把返回值给了主进程
 
 下面是该函数的执行流程图：
 
@@ -216,7 +216,7 @@ gcc thread2.c -o tr2 -lpthread
 
 只能被单一线程访问的设备，例如：打印机。
 
-一个最简单的实现方法就是当线程（Thread）进入临界区块时，禁止改变处理器；在uni-processor系统上，可以用“禁止中断（CLI）”来完成，避免发生系统调用（System Call）导致的上下文交换（Context switching）；当离开临界区块时，处理器恢复原先的状态。
+一个最简单的实现方法就是当线程（Thread）进入临界区块时，禁止改变处理器；在 uni-processor 系统上，可以用“禁止中断（CLI）”来完成，避免发生系统调用（System Call）导致的上下文交换（Context switching）；当离开临界区块时，处理器恢复原先的状态。
 
 根据临界区是否引起问题，函数可以分为以下 2 类：
 
@@ -259,7 +259,7 @@ gcc -D_REENTRANT mythread.c -o mthread -lpthread
 
 下面是代码：
 
-- [thread3.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/thread3.c)
+- [thread3.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/thread3.c)
 
 ```c
 #include <stdio.h>
@@ -309,7 +309,7 @@ gcc thread3.c -D_REENTRANT -o tr3 -lpthread
 
 但是本例子本身存在问题。存在临界区相关问题，可以从下面的代码看出，下面的代码和上面的代码相似，只是增加了发生临界区错误的可能性，即使在高配置系统环境下也容易产生的错误：
 
-- [thread4.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/thread4.c)
+- [thread4.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/thread4.c)
 
 ```c
 #include <stdio.h>
@@ -374,11 +374,11 @@ gcc thread4.c -D_REENTRANT -o tr4 -lpthread
 
 ### 18.3 线程存在的问题和临界区
 
-下面分析 [thread4.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/thread4.c) 中产生问题的原因，并给出解决方案。
+下面分析 [thread4.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/thread4.c) 中产生问题的原因，并给出解决方案。
 
 #### 18.3.1 多个线程访问同一变量是问题
 
- [thread4.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/thread4.c) 的问题如下：
+[thread4.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/thread4.c) 的问题如下：
 
 > 2 个线程正在同时访问全局变量 num
 
@@ -419,7 +419,7 @@ void *thread_des(void *arg)
 
 比如发生以下情况：
 
-> 线程 1 执行 thread_inc 的 num+=1 语句的同时，线程 2  执行 thread_des 函数的 num-=1 语句
+> 线程 1 执行 thread_inc 的 num+=1 语句的同时，线程 2 执行 thread_des 函数的 num-=1 语句
 
 也就是说，两条不同的语句由不同的线程执行时，也有可能构成临界区。前提是这 2 条语句访问同一内存空间。
 
@@ -491,9 +491,9 @@ pthread_mutex_lock(&mutex);
 pthread_mutex_unlock(&mutex);
 ```
 
-简言之，就是利用 lock 和 unlock 函数围住临界区的两端。此时互斥量相当于一把锁，阻止多个线程同时访问，还有一点要注意，线程退出临界区时，如果忘了调用 pthread_mutex_unlock 函数，那么其他为了进入临界区而调用 pthread_mutex_lock 的函数无法摆脱阻塞状态。这种情况称为「死锁」。需要格外注意，下面是利用互斥量解决示例 [thread4.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/thread4.c) 中遇到的问题代码：
+简言之，就是利用 lock 和 unlock 函数围住临界区的两端。此时互斥量相当于一把锁，阻止多个线程同时访问，还有一点要注意，线程退出临界区时，如果忘了调用 pthread_mutex_unlock 函数，那么其他为了进入临界区而调用 pthread_mutex_lock 的函数无法摆脱阻塞状态。这种情况称为「死锁」。需要格外注意，下面是利用互斥量解决示例 [thread4.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/thread4.c) 中遇到的问题代码：
 
-- [mutex.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/mutex.c)
+- [mutex.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/mutex.c)
 
 ```c
 #include <stdio.h>
@@ -583,11 +583,11 @@ void *thread_inc(void *arg)
 
 #### 18.4.3 信号量
 
-信号量（英语：Semaphore）又称为信号标，是一个同步对象，用于保持在0至指定最大值之间的一个计数值。当线程完成一次对该semaphore对象的等待（wait）时，该计数值减一；当线程完成一次对semaphore对象的释放（release）时，计数值加一。当计数值为0，则线程等待该semaphore对象不再能成功直至该semaphore对象变成signaled状态。semaphore对象的计数值大于0，为signaled状态；计数值等于0，为nonsignaled状态.
+信号量（英语：Semaphore）又称为信号标，是一个同步对象，用于保持在 0 至指定最大值之间的一个计数值。当线程完成一次对该 semaphore 对象的等待（wait）时，该计数值减一；当线程完成一次对 semaphore 对象的释放（release）时，计数值加一。当计数值为 0，则线程等待该 semaphore 对象不再能成功直至该 semaphore 对象变成 signaled 状态。semaphore 对象的计数值大于 0，为 signaled 状态；计数值等于 0，为 nonsignaled 状态.
 
-semaphore对象适用于控制一个仅支持有限个用户的共享资源，是一种不需要使用忙碌等待（busy waiting）的方法。
+semaphore 对象适用于控制一个仅支持有限个用户的共享资源，是一种不需要使用忙碌等待（busy waiting）的方法。
 
-信号量的概念是由荷兰计算机科学家艾兹赫尔·戴克斯特拉（Edsger W. Dijkstra）发明的，广泛的应用于不同的操作系统中。在系统中，给予每一个进程一个信号量，代表每个进程当前的状态，未得到控制权的进程会在特定地方被强迫停下来，等待可以继续进行的信号到来。如果信号量是一个任意的整数，通常被称为计数信号量（Counting semaphore），或一般信号量（general semaphore）；如果信号量只有二进制的0或1，称为二进制信号量（binary semaphore）。在linux系统中，二进制信号量（binary semaphore）又称互斥锁（Mutex）。
+信号量的概念是由荷兰计算机科学家艾兹赫尔·戴克斯特拉（Edsger W. Dijkstra）发明的，广泛的应用于不同的操作系统中。在系统中，给予每一个进程一个信号量，代表每个进程当前的状态，未得到控制权的进程会在特定地方被强迫停下来，等待可以继续进行的信号到来。如果信号量是一个任意的整数，通常被称为计数信号量（Counting semaphore），或一般信号量（general semaphore）；如果信号量只有二进制的 0 或 1，称为二进制信号量（binary semaphore）。在 linux 系统中，二进制信号量（binary semaphore）又称互斥锁（Mutex）。
 
 下面介绍信号量，在互斥量的基础上，很容易理解信号量。此处只涉及利用「二进制信号量」（只用 0 和 1）完成「控制线程顺序」为中心的同步方法。下面是信号量的创建及销毁方法：
 
@@ -625,13 +625,13 @@ sem_wait(&sem);//信号量变为0...
 sem_post(&sem);//信号量变为1...
 ```
 
-上述代码结构中，调用 sem_wait 函数进入临界区的线程在调用 sem_post 函数前不允许其他线程进入临界区。信号量的值在 0 和  1 之间跳转，因此，具有这种特性的机制称为「二进制信号量」。接下来的代码是信号量机制的代码。下面代码并非是同时访问的同步，而是关于控制访问顺序的同步，该场景为：
+上述代码结构中，调用 sem_wait 函数进入临界区的线程在调用 sem_post 函数前不允许其他线程进入临界区。信号量的值在 0 和 1 之间跳转，因此，具有这种特性的机制称为「二进制信号量」。接下来的代码是信号量机制的代码。下面代码并非是同时访问的同步，而是关于控制访问顺序的同步，该场景为：
 
-> 线程  A 从用户输入得到值后存入全局变量 num ，此时线程 B 将取走该值并累加。该过程一共进行 5 次，完成后输出总和并退出程序。
+> 线程 A 从用户输入得到值后存入全局变量 num ，此时线程 B 将取走该值并累加。该过程一共进行 5 次，完成后输出总和并退出程序。
 
 下面是代码：
 
-- [semaphore.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/semaphore.c)
+- [semaphore.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/semaphore.c)
 
 ```c
 #include <stdio.h>
@@ -729,8 +729,8 @@ thread : 终止的同时需要销毁的线程 ID
 
 下面是多个客户端之间可以交换信息的简单聊天程序。
 
-- [chat_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/chat_server.c)
-- [chat_clnt.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch18/chat_clnt.c)
+- [chat_server.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/chat_server.c)
+- [chat_clnt.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch18/chat_clnt.c)
 
 上面的服务端示例中，需要掌握临界区的构成，访问全局变量 clnt_cnt 和数组 clnt_socks 的代码将构成临界区，添加和删除客户端时，变量 clnt_cnt 和数组 clnt_socks 将同时发生变化。因此下列情形会导致数据不一致，从而引发错误：
 
@@ -787,4 +787,4 @@ gcc chat_clnt.c -D_REENTRANT -o cclnt -lpthread
 
 6. **请说明完全销毁 Linux 线程的 2 种办法**
 
-   答：①调用 pthread_join 函数②调用 pthread_detach 函数。第一个会阻塞调用的线程，而第二个不阻塞。都可以引导线程销毁。
+   答：① 调用 pthread_join 函数 ② 调用 pthread_detach 函数。第一个会阻塞调用的线程，而第二个不阻塞。都可以引导线程销毁。

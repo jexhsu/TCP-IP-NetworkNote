@@ -1,6 +1,6 @@
 ## 第 10 章 多进程服务器端
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 10.1 进程概念及应用
 
@@ -22,15 +22,15 @@
 
 假如你下载了一个游戏到电脑上，此时的游戏不是进程，而是程序。只有当游戏被加载到主内存并进入运行状态，这是才可称为进程。
 
-#### 10.1.3 进程 ID 
+#### 10.1.3 进程 ID
 
-在说进程创建方法之前，先要简要说明进程 ID。无论进程是如何创建的，所有的进程都会被操作系统分配一个 ID。此 ID 被称为「进程ID」，其值为大于 2 的整数。1 要分配给操作系统启动后的（用于协助操作系统）首个进程，因此用户无法得到 ID 值为 1 。接下来观察在 Linux 中运行的进程。
+在说进程创建方法之前，先要简要说明进程 ID。无论进程是如何创建的，所有的进程都会被操作系统分配一个 ID。此 ID 被称为「进程 ID」，其值为大于 2 的整数。1 要分配给操作系统启动后的（用于协助操作系统）首个进程，因此用户无法得到 ID 值为 1 。接下来观察在 Linux 中运行的进程。
 
 ```shell
 ps au
 ```
 
-通过上面的命令可查看当前运行的所有进程。需要注意的是，该命令同时列出了 PID（进程ID）。参数 a 和 u列出了所有进程的详细信息。
+通过上面的命令可查看当前运行的所有进程。需要注意的是，该命令同时列出了 PID（进程 ID）。参数 a 和 u 列出了所有进程的详细信息。
 
 ![](https://i.loli.net/2019/01/20/5c43d7c1f2a8b.png)
 
@@ -55,7 +55,7 @@ fork 函数将创建调用的进程副本。也就是说，并非根据完全不
 
 从图中可以看出，父进程调用 fork 函数的同时复制出子进程，并分别得到 fork 函数的返回值。但复制前，父进程将全局变量 gval 增加到 11,将局部变量 lval 的值增加到 25，因此在这种状态下完成进程复制。复制完成后根据 fork 函数的返回类型区分父子进程。父进程的 lval 的值增加 1 ，但这不会影响子进程的 lval 值。同样子进程将 gval 的值增加 1 也不会影响到父进程的 gval 。因为 fork 函数调用后分成了完全不同的进程，只是二者共享同一段代码而已。接下来给出一个例子：
 
-- [fork.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/fork.c)
+- [fork.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/fork.c)
 
 ```c
 #include <stdio.h>
@@ -90,7 +90,7 @@ gcc fork.c -o fork
 
 ![](https://i.loli.net/2019/01/20/5c43e054e7f6f.png)
 
-可以看出，当执行了 fork 函数之后，此后就相当于有了两个程序在执行代码，对于父进程来说，fork 函数返回的是子进程的ID，对于子进程来说，fork 函数返回 0。所以这两个变量，父进程进行了 +2 操作 ，而子进程进行了 -2 操作，所以结果是这样。
+可以看出，当执行了 fork 函数之后，此后就相当于有了两个程序在执行代码，对于父进程来说，fork 函数返回的是子进程的 ID，对于子进程来说，fork 函数返回 0。所以这两个变量，父进程进行了 +2 操作 ，而子进程进行了 -2 操作，所以结果是这样。
 
 ### 10.2 进程和僵尸进程
 
@@ -100,21 +100,21 @@ gcc fork.c -o fork
 
 进程的工作完成后（执行完 main 函数中的程序后）应被销毁，但有时这些进程将变成僵尸进程，占用系统中的重要资源。这种状态下的进程称作「僵尸进程」，这也是给系统带来负担的原因之一。
 
-> 僵尸进程是当子进程比父进程先结束，而父进程又没有回收子进程，释放子进程占用的资源，此时子进程将成为一个僵尸进程。如果父进程先退出 ，子进程被init接管，子进程退出后init会回收其占用的相关资源
+> 僵尸进程是当子进程比父进程先结束，而父进程又没有回收子进程，释放子进程占用的资源，此时子进程将成为一个僵尸进程。如果父进程先退出 ，子进程被 init 接管，子进程退出后 init 会回收其占用的相关资源
 
 **维基百科**：
 
-> 在类UNIX系统中，僵尸进程是指完成执行（通过exit系统调用，或运行时发生致命错误或收到终止信号所致）但在操作系统的进程表中仍然有一个表项（进程控制块PCB），处于"终止状态"的进程。这发生于子进程需要保留表项以允许其父进程读取子进程的exit status：一旦退出态通过wait系统调用读取，僵尸进程条目就从进程表中删除，称之为"回收（reaped）"。正常情况下，进程直接被其父进程wait并由系统回收。进程长时间保持僵尸状态一般是错误的并导致资源泄漏。
+> 在类 UNIX 系统中，僵尸进程是指完成执行（通过 exit 系统调用，或运行时发生致命错误或收到终止信号所致）但在操作系统的进程表中仍然有一个表项（进程控制块 PCB），处于"终止状态"的进程。这发生于子进程需要保留表项以允许其父进程读取子进程的 exit status：一旦退出态通过 wait 系统调用读取，僵尸进程条目就从进程表中删除，称之为"回收（reaped）"。正常情况下，进程直接被其父进程 wait 并由系统回收。进程长时间保持僵尸状态一般是错误的并导致资源泄漏。
 >
-> 英文术语zombie process源自丧尸 — 不死之人，隐喻子进程已死但仍然没有被收割。与正常进程不同，kill命令对僵尸进程无效。孤儿进程不同于僵尸进程，其父进程已经死掉，但孤儿进程仍能正常执行，但并不会变为僵尸进程，因为被init（进程ID号为1）收养并wait其退出。
+> 英文术语 zombie process 源自丧尸 — 不死之人，隐喻子进程已死但仍然没有被收割。与正常进程不同，kill 命令对僵尸进程无效。孤儿进程不同于僵尸进程，其父进程已经死掉，但孤儿进程仍能正常执行，但并不会变为僵尸进程，因为被 init（进程 ID 号为 1）收养并 wait 其退出。
 >
-> 子进程死后，系统会发送SIGCHLD 信号给父进程，父进程对其默认处理是忽略。如果想响应这个消息，父进程通常在SIGCHLD 信号事件处理程序中，使用wait系统调用来响应子进程的终止。
+> 子进程死后，系统会发送 SIGCHLD 信号给父进程，父进程对其默认处理是忽略。如果想响应这个消息，父进程通常在 SIGCHLD 信号事件处理程序中，使用 wait 系统调用来响应子进程的终止。
 >
-> 僵尸进程被收割后，其进程号(PID)与在进程表中的表项都可以被系统重用。但如果父进程没有调用wait，僵尸进程将保留进程表中的表项，导致了资源泄漏。某些情况下这反倒是期望的：父进程创建了另外一个子进程，并希望具有不同的进程号。如果父进程通过设置事件处理函数为SIG_IGN显式忽略SIGCHLD信号，而不是隐式默认忽略该信号，或者具有SA_NOCLDWAIT标志，所有子进程的退出状态信息将被抛弃并且直接被系统回收。
+> 僵尸进程被收割后，其进程号(PID)与在进程表中的表项都可以被系统重用。但如果父进程没有调用 wait，僵尸进程将保留进程表中的表项，导致了资源泄漏。某些情况下这反倒是期望的：父进程创建了另外一个子进程，并希望具有不同的进程号。如果父进程通过设置事件处理函数为 SIG_IGN 显式忽略 SIGCHLD 信号，而不是隐式默认忽略该信号，或者具有 SA_NOCLDWAIT 标志，所有子进程的退出状态信息将被抛弃并且直接被系统回收。
 >
-> UNIX命令ps列出的进程的状态（"STAT"）栏标示为 "Z"则为僵尸进程。[1]
+> UNIX 命令 ps 列出的进程的状态（"STAT"）栏标示为 "Z"则为僵尸进程。[1]
 >
-> 收割僵尸进程的方法是通过kill命令手工向其父进程发送SIGCHLD信号。如果其父进程仍然拒绝收割僵尸进程，则终止父进程，使得init进程收养僵尸进程。init进程周期执行wait系统调用收割其收养的所有僵尸进程。
+> 收割僵尸进程的方法是通过 kill 命令手工向其父进程发送 SIGCHLD 信号。如果其父进程仍然拒绝收割僵尸进程，则终止父进程，使得 init 进程收养僵尸进程。init 进程周期执行 wait 系统调用收割其收养的所有僵尸进程。
 
 #### 10.2.2 产生僵尸进程的原因
 
@@ -129,7 +129,7 @@ gcc fork.c -o fork
 
 如何向父进程传递这些值呢？操作系统不会主动把这些值传递给父进程。只有父进程主动发起请求（函数调用）的时候，操作系统才会传递该值。换言之，如果父进程未主动要求获得子进程结束状态值，操作系统将一直保存，并让子进程长时间处于僵尸进程状态。也就是说，父母要负责收回自己生的孩子。接下来的示例是创建僵尸进程：
 
-- [zombie.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/zombie.c)
+- [zombie.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/zombie.c)
 
 ```c
 #include <stdio.h>
@@ -169,7 +169,7 @@ gcc zombie.c -o zombie
 
 ![](https://i.loli.net/2019/01/20/5c4439a751b11.png)
 
-通过 `ps au` 命令可以看出，子进程仍然存在，并没有被销毁，僵尸进程在这里显示为 `Z+`.30秒后，红框里面的两个进程会同时被销毁。
+通过 `ps au` 命令可以看出，子进程仍然存在，并没有被销毁，僵尸进程在这里显示为 `Z+`.30 秒后，红框里面的两个进程会同时被销毁。
 
 > 利用 `./zombie &`可以使程序在后台运行，不用打开新的命令行窗口。
 
@@ -202,7 +202,7 @@ if (WIFEXITED(status))
 
 根据以上内容，有如下示例：
 
-- [wait.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/wait.c)
+- [wait.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/wait.c)
 
 ```c
 #include <stdio.h>
@@ -276,7 +276,7 @@ options: 传递头文件 sys/wait.h 声明的常量 WNOHANG ,即使没有终止�
 
 以下是 waitpid 的使用示例：
 
-- [waitpid.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/waitpid.c)
+- [waitpid.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/waitpid.c)
 
 ```c
 #include <stdio.h>
@@ -390,7 +390,7 @@ unsigned int alarm(unsigned int seconds);
 
 如果调用该函数的同时向它传递一个正整型参数，相应时间后（以秒为单位）将产生 SIGALRM 信号。若向该函数传递为 0 ，则之前对 SIGALRM 信号的预约将取消。如果通过改函数预约信号后未指定该信号对应的处理函数，则（通过调用 signal 函数）终止进程，不做任何处理。
 
-- [signal.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/signal.c)
+- [signal.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/signal.c)
 
 ```c
 #include <stdio.h>
@@ -444,7 +444,7 @@ gcc signal.c -o signal
 
 调用函数的主体的确是操作系统，但是进程处于睡眠状态时无法调用函数，因此，产生信号时，为了调用信号处理器，将唤醒由于调用 sleep 函数而进入阻塞状态的进程。而且，进程一旦被唤醒，就不会再进入睡眠状态。即使还未到 sleep 中规定的时间也是如此。所以上述示例运行不到 10 秒后就会结束，连续输入 CTRL+C 可能连一秒都不到。
 
-**简言之，就是本来系统要睡眠100秒，但是到了 alarm(2) 规定的两秒之后，就会唤醒睡眠的进程，进程被唤醒了就不会再进入睡眠状态了，所以就不用等待100秒。如果把 timeout() 函数中的 alarm(2) 注释掉，就会先输出`wait...`，然后再输出`Time out!` (这时已经跳过了第一次的 sleep(100) 秒),然后就真的会睡眠100秒，因为没有再发出 alarm(2)  的信号。**
+**简言之，就是本来系统要睡眠 100 秒，但是到了 alarm(2) 规定的两秒之后，就会唤醒睡眠的进程，进程被唤醒了就不会再进入睡眠状态了，所以就不用等待 100 秒。如果把 timeout() 函数中的 alarm(2) 注释掉，就会先输出`wait...`，然后再输出`Time out!` (这时已经跳过了第一次的 sleep(100) 秒),然后就真的会睡眠 100 秒，因为没有再发出 alarm(2) 的信号。**
 
 #### 10.3.3 利用 sigaction 函数进行信号处理
 
@@ -480,7 +480,7 @@ struct sigaction
 
 下面的示例是关于 sigaction 函数的使用方法。
 
-- [sigaction.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/sigaction.c)
+- [sigaction.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/sigaction.c)
 
 ```c
 #include <stdio.h>
@@ -539,7 +539,7 @@ Time out!
 
 下面利用子进程终止时产生 SIGCHLD 信号这一点，来用信号处理来消灭僵尸进程。看以下代码：
 
-- [remove_zomebie.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/remove_zomebie.c)
+- [remove_zomebie.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/remove_zomebie.c)
 
 ```c
 #include <stdio.h>
@@ -612,22 +612,22 @@ gcc remove_zomebie.c -o zombie
 ```
 Child proc id: 11211
 Hi I'm child process
-Child proc id: 11212 
+Child proc id: 11212
 wait
 Hi! I'm child process
 
 wait
 
 wait
-Removed proc id: 11211 
-Child send: 12 
+Removed proc id: 11211
+Child send: 12
 wait
-Removed proc id: 11212 
-Child send: 24 
+Removed proc id: 11212
+Child send: 24
 wait
 ```
 
-请自习观察结果，结果中的每一个空行代表间隔了5 秒，程序是先创建了两个子进程，然后子进程 10  秒之后会返回值，第一个 wait 由于子进程在执行，所以直接被唤醒，然后这两个子进程正在睡 10 秒，所以 5 秒之后第二个 wait 开始执行，又过了 5 秒，两个子进程同时被唤醒。所以剩下的 wait 也被唤醒。
+请自习观察结果，结果中的每一个空行代表间隔了 5 秒，程序是先创建了两个子进程，然后子进程 10 秒之后会返回值，第一个 wait 由于子进程在执行，所以直接被唤醒，然后这两个子进程正在睡 10 秒，所以 5 秒之后第二个 wait 开始执行，又过了 5 秒，两个子进程同时被唤醒。所以剩下的 wait 也被唤醒。
 
 所以在本程序的过程中，当子进程终止时候，会向系统发送一个信号，然后调用我们提前写好的处理函数，在处理函数中使用 waitpid 来处理僵尸进程，获取子进程返回值。
 
@@ -647,9 +647,9 @@ wait
 
 #### 10.4.2 实现并发服务器
 
-下面是基于多进程实现的并发的回声服务器的服务端，可以结合第四章的 [echo_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch04/echo_client.c) 回声客户端来运行。
+下面是基于多进程实现的并发的回声服务器的服务端，可以结合第四章的 [echo_client.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch04/echo_client.c) 回声客户端来运行。
 
-- [echo_mpserv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/echo_mpserv.c)
+- [echo_mpserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpserv.c)
 
 编译运行：
 
@@ -692,15 +692,13 @@ gcc echo_mpserv.c -o eserver
 
 ![](https://s2.ax1x.com/2019/01/21/kPbvtg.png)
 
-
-
 根据上图显示可以看出，在网络不好的情况下，明显提升速度。
 
 #### 10.5.2 回声客户端的 I/O 程序分割
 
 下面是回声客户端的 I/O 分割的代码实现：
 
-- [echo_mpclient.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c)
+- [echo_mpclient.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c)
 
 可以配合刚才的并发服务器进行执行。
 
@@ -741,7 +739,7 @@ gcc echo_mpclient.c -o eclient
 
 3. **创建子进程时复制父进程所有内容，此时复制对象也包含套接字文件描述符。编写程序验证赋值的文件描述符整数值是否与原文件描述符数值相同。**
 
-   答：代码为多进程服务器修改而来，代码：[test_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/test_server.c)
+   答：代码为多进程服务器修改而来，代码：[test_server.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/test_server.c)
 
    运行截图：
 
@@ -751,4 +749,4 @@ gcc echo_mpclient.c -o eclient
 
 4. **请说明进程变为僵尸进程的过程以及预防措施。**
 
-   答：当一个父进程以fork()系统调用建立一个新的子进程后，核心进程就会在进程表中给这个子进程分配一个进入点，然后将相关信息存储在该进入点所对应的进程表内。这些信息中有一项是其父进程的识别码。而当这个子进程结束的时候（比如调用exit命令结束），其实他并没有真正的被销毁，而是留下一个称为僵尸进程（Zombie）的数据结构（系统调用exit的作用是使进程退出，但是也仅仅限于一个正常的进程变成了一个僵尸进程，并不能完全将其销毁）。**预防措施**：通过 wait 和 waitpid 函数加上信号函数写代码来预防。
+   答：当一个父进程以 fork()系统调用建立一个新的子进程后，核心进程就会在进程表中给这个子进程分配一个进入点，然后将相关信息存储在该进入点所对应的进程表内。这些信息中有一项是其父进程的识别码。而当这个子进程结束的时候（比如调用 exit 命令结束），其实他并没有真正的被销毁，而是留下一个称为僵尸进程（Zombie）的数据结构（系统调用 exit 的作用是使进程退出，但是也仅仅限于一个正常的进程变成了一个僵尸进程，并不能完全将其销毁）。**预防措施**：通过 wait 和 waitpid 函数加上信号函数写代码来预防。

@@ -1,6 +1,6 @@
 ## 第 14 章 多播与广播
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 14.1 多播
 
@@ -14,9 +14,9 @@
 - 即使只发送 1 次数据，但该组内的所有客户端都会接收数据
 - 多播组数可以在 IP 地址范围内任意增加
 
-多播组是 D 类IP地址（224.0.0.0~239.255.255.255），「加入多播组」可以理解为通过程序完成如下声明：
+多播组是 D 类 IP 地址（224.0.0.0~239.255.255.255），「加入多播组」可以理解为通过程序完成如下声明：
 
-> 在 D 类IP地址中，我希望接收发往目标 239.234.218.234 的多播数据
+> 在 D 类 IP 地址中，我希望接收发往目标 239.234.218.234 的多播数据
 
 多播是基于 UDP 完成的，也就是说，多播数据包的格式与 UDP 数据包相同。只是与一般的 UDP 数据包不同。向网络传递 1 个多播数据包时，路由器将复制该数据包并传递到多个主机。像这样，多播需要借助路由器完成。如图所示：
 
@@ -28,7 +28,7 @@
 
 #### 14.1.2 路由（Routing）和 TTL（Time to Live,生存时间），以及加入组的办法
 
-为了传递多播数据包，必须设置 TTL 。TTL 是 Time to Live的简写，是决定「数据包传递距离」的主要因素。TTL 用整数表示，并且每经过一个路由器就减一。TTL 变为 0 时，该数据包就无法再被传递，只能销毁。因此，TTL 的值设置过大将影响网络流量。当然，设置过小，也无法传递到目标。
+为了传递多播数据包，必须设置 TTL 。TTL 是 Time to Live 的简写，是决定「数据包传递距离」的主要因素。TTL 用整数表示，并且每经过一个路由器就减一。TTL 变为 0 时，该数据包就无法再被传递，只能销毁。因此，TTL 的值设置过大将影响网络流量。当然，设置过小，也无法传递到目标。
 
 ![](https://i.loli.net/2019/01/27/5c4d3960001eb.png)
 
@@ -76,8 +76,8 @@ struct ip_mreq
 
 下面是两个代码：
 
-- [news_sender.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch14/news_sender.c)
-- [news_receiver.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch14/news_receiver.c)
+- [news_sender.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_sender.c)
+- [news_receiver.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_receiver.c)
 
 编译运行：
 
@@ -100,16 +100,16 @@ gcc news_receiver.c -o receiver
 
 #### 14.2.1 广播的理解和实现方法
 
-广播是向同一网络中的所有主机传输数据的方法。与多播相同，广播也是通过 UDP 来完成的。根据传输数据时使用的IP地址形式，广播分为以下两种：
+广播是向同一网络中的所有主机传输数据的方法。与多播相同，广播也是通过 UDP 来完成的。根据传输数据时使用的 IP 地址形式，广播分为以下两种：
 
 - 直接广播（Directed Broadcast）
 - 本地广播（Local Broadcast）
 
-二者在实现上的差别主要在于IP地址。直接广播的IP地址中除了网络地址外，其余主机地址全部设置成 1。例如，希望向网络地址 192.12.34 中的所有主机传输数据时，可以向 192.12.34.255 传输。换言之，可以采取直接广播的方式向特定区域内所有主机传输数据。
+二者在实现上的差别主要在于 IP 地址。直接广播的 IP 地址中除了网络地址外，其余主机地址全部设置成 1。例如，希望向网络地址 192.12.34 中的所有主机传输数据时，可以向 192.12.34.255 传输。换言之，可以采取直接广播的方式向特定区域内所有主机传输数据。
 
-反之，本地广播中使用的IP地址限定为 255.255.255.255 。例如，192.32.24 网络中的主机向 255.255.255.255 传输数据时，数据将传输到 192.32.24 网络中所有主机。
+反之，本地广播中使用的 IP 地址限定为 255.255.255.255 。例如，192.32.24 网络中的主机向 255.255.255.255 传输数据时，数据将传输到 192.32.24 网络中所有主机。
 
-**数据通信中使用的IP地址是与 UDP 示例的唯一区别。默认生成的套接字会阻止广播，因此，只需通过如下代码更改默认设置。**
+**数据通信中使用的 IP 地址是与 UDP 示例的唯一区别。默认生成的套接字会阻止广播，因此，只需通过如下代码更改默认设置。**
 
 ```c
 int send_sock;
@@ -123,10 +123,10 @@ setsockopt(send_sock,SOL_SOCKET,SO_BROADCAST,(void*)&bcast,sizeof(bcast));
 
 ### 14.2.2 实现广播数据的 Sender 和 Receiver
 
-下面是广播数据的 Sender 和 Receiver的代码：
+下面是广播数据的 Sender 和 Receiver 的代码：
 
-- [news_sender_brd.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch14/news_sender_brd.c)
-- [news_receiver_brd.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch14/news_receiver_brd.c)
+- [news_sender_brd.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_sender_brd.c)
+- [news_receiver_brd.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_receiver_brd.c)
 
 编译运行：
 
@@ -151,7 +151,7 @@ gcc news_sender_brd.c -o sender
 
 1. **TTL 的含义是什么？请从路由器的角度说明较大的 TTL 值与较小的 TTL 值之间的区别及问题。**
 
-   答：TTL 是决定「数据包传递距离」的主要因素。TTL 每经过一个路由器就减一。TTL 变为 0 时，数据包就无法再被传递，只能销毁。因此，TTL设置过大会影响网络流量。当然，设置过小无法传递到目标。
+   答：TTL 是决定「数据包传递距离」的主要因素。TTL 每经过一个路由器就减一。TTL 变为 0 时，数据包就无法再被传递，只能销毁。因此，TTL 设置过大会影响网络流量。当然，设置过小无法传递到目标。
 
 2. **多播与广播的异同点是什么？请从数据通信的角度进行说明**。
 
@@ -163,12 +163,12 @@ gcc news_sender_brd.c -o sender
 
    1. 多播是用来加入多播组的所有主机传输数据的协议
    2. 主机连接到同一网络才能加入到多播组，也就是说，多播组无法跨越多个网络
-   3. **能够加入多播组的主机数并无限制，但只能有 1个主机（Sender）向该组发送数据**
+   3. **能够加入多播组的主机数并无限制，但只能有 1 个主机（Sender）向该组发送数据**
    4. **多播时使用的套接字是 UDP 套接字，因为多播是基于 UDP 进行数据通信的。**
 
 4. **多播也对网络流量有利，请比较 TCP 交换方式解释其原因**
 
-   答：TCP 是必须建立一对一的连接，如果要向1000个主机发送文件，就得传递1000次。但是此时用多播方式传输数据，就只需要发送一次。
+   答：TCP 是必须建立一对一的连接，如果要向 1000 个主机发送文件，就得传递 1000 次。但是此时用多播方式传输数据，就只需要发送一次。
 
 5. **多播方式的数据通信需要 MBone 虚拟网络。换言之，MBone 是用于多播的网络，但它是虚拟网络。请解释此处的「虚拟网络」**
 

@@ -1,12 +1,12 @@
 ## 第 16 章 关于 I/O 流分离的其他内容
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 16.1 分离 I/O 流
 
 「分离 I/O 流」是一种常用表达。有 I/O 工具可区分二者，无论采用哪种方法，都可以认为是分离了 I/O 流。
 
-#### 16.1.1 2次  I/O 流分离
+#### 16.1.1 2 次 I/O 流分离
 
 之前有两种分离方法：
 
@@ -34,12 +34,12 @@
 shutdown(sock,SHUT_WR);
 ```
 
-当时说过调用 shutdown 函数的基于半关闭的 EOF 传递方法。第十章的 [echo_mpclient.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c) 添加了半关闭的相关代码。但是还没有讲采用 fdopen 函数怎么半关闭。那么是否是通过 fclose 函数关闭流呢？我们先试试
+当时说过调用 shutdown 函数的基于半关闭的 EOF 传递方法。第十章的 [echo_mpclient.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c) 添加了半关闭的相关代码。但是还没有讲采用 fdopen 函数怎么半关闭。那么是否是通过 fclose 函数关闭流呢？我们先试试
 
 下面是服务端和客户端码：
 
-- [sep_clnt.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch16/sep_clnt.c)
-- [sep_serv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch16/sep_serv.c)
+- [sep_clnt.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch16/sep_clnt.c)
+- [sep_serv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch16/sep_serv.c)
 
 编译运行：
 
@@ -62,7 +62,7 @@ gcc sep_serv.c -o serv
 
 #### 16.2.1 终止「流」时无法半关闭原因
 
-下面的图描述的是服务端代码中的两个FILE 指针、文件描述符和套接字中的关系。
+下面的图描述的是服务端代码中的两个 FILE 指针、文件描述符和套接字中的关系。
 
 ![](https://i.loli.net/2019/01/30/5c5121da89955.png)
 
@@ -109,7 +109,7 @@ fildes2 : 明确指定的文件描述符的整数值。
 
 dup2 函数明确指定复制的文件描述符的整数值。向其传递大于 0 且小于进程能生成的最大文件描述符值时，该值将成为复制出的文件描述符值。下面是代码示例：
 
-- [dup.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch16/dup.c)
+- [dup.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch16/dup.c)
 
 ```c
 #include <stdio.h>
@@ -151,13 +151,13 @@ gcc dup.c -o dup
 
 #### 16.2.4 复制文件描述符后「流」的分离
 
-下面更改 [sep_clnt.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch16/sep_clnt.c) 和 [sep_serv.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch16/sep_serv.c) 可以使得让它正常工作，正常工作是指通过服务器的半关闭状态接收客户端最后发送的字符串。
+下面更改 [sep_clnt.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch16/sep_clnt.c) 和 [sep_serv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch16/sep_serv.c) 可以使得让它正常工作，正常工作是指通过服务器的半关闭状态接收客户端最后发送的字符串。
 
 下面是代码：
 
-- [sep_serv2.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch16/sep_serv2.c)
+- [sep_serv2.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch16/sep_serv2.c)
 
-这个代码可以与 [sep_clnt.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch16/sep_clnt.c) 配合起来食用，编译过程和上面一样，运行结果为：
+这个代码可以与 [sep_clnt.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch16/sep_clnt.c) 配合起来食用，编译过程和上面一样，运行结果为：
 
 ![](https://i.loli.net/2019/01/30/5c513d54a27e0.png)
 

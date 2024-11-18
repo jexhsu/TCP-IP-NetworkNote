@@ -1,6 +1,6 @@
 ## 第 24 章 制作 HTTP 服务器端
 
-本章代码，在[TCP-IP-NetworkNote](https://github.com/riba2534/TCP-IP-NetworkNote)中可以找到。
+本章代码，在[TCP-IP-NetworkNote](https://github.com/jexhsu/TCP-IP-NetworkNote)中可以找到。
 
 ### 24.1 HTTP 概要
 
@@ -8,7 +8,7 @@
 
 #### 24.1.1 理解 Web 服务器端
 
-web服务器端就是要基于 HTTP 协议，将网页对应文件传输给客户端的服务器端。
+web 服务器端就是要基于 HTTP 协议，将网页对应文件传输给客户端的服务器端。
 
 #### 24.1.2 HTTP
 
@@ -28,7 +28,7 @@ web服务器端就是要基于 HTTP 协议，将网页对应文件传输给客�
 
 > 请求（GET）index.html 文件，通常以 1.1 版本的 HTTP 协议进行通信。
 
-请求行只能通过  1 行（line）发送，因此，服务器端很容易从 HTTP 请求中提取第一行，并分别分析请求行中的信息。
+请求行只能通过 1 行（line）发送，因此，服务器端很容易从 HTTP 请求中提取第一行，并分别分析请求行中的信息。
 
 请求行下面的消息头中包含发送请求的浏览器信息、用户认证信息等关于 HTTP 消息的附加信息。最后的消息体中装有客户端向服务端传输的数据，为了装入数据，需要以 POST 方式发送请求。但是我们的目标是实现 GET 方式的服务器端，所以可以忽略这部分内容。另外，消息体和消息头与之间以空行隔开，因此不会发生边界问题
 
@@ -60,7 +60,7 @@ web服务器端就是要基于 HTTP 协议，将网页对应文件传输给客�
 
 下面是代码：
 
-- [webserv_linux.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch24/webserv_linux.c)
+- [webserv_linux.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch24/webserv_linux.c)
 
 ```c
 #include <stdio.h>
@@ -252,6 +252,6 @@ gcc webserv_linux.c -D_REENTRANT -o web_serv -lpthread
    答：以下加粗选项代表正确。
 
    1. HTTP 协议是无状态的 Stateless 协议，不仅可以通过 TCP 实现，还可以通过 UDP 来实现
-   2. **HTTP 协议是无状态的 Stateless 协议，因为其在 1 次请求和响应过程完成后立即断开连接。因此，如果同一服务器端和客户端需要  3 次请求及响应，则意味着需要经过 3 次套接字的创建过程**。
+   2. **HTTP 协议是无状态的 Stateless 协议，因为其在 1 次请求和响应过程完成后立即断开连接。因此，如果同一服务器端和客户端需要 3 次请求及响应，则意味着需要经过 3 次套接字的创建过程**。
    3. **服务端向客户端传递的状态码中含有请求处理结果的信息**。
    4. **HTTP 协议是基于因特网的协议，因此，为了同时向大量客户端提供服务，HTTP 协议被设计为 Stateless 协议**。
