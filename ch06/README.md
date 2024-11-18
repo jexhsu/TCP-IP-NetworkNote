@@ -8,7 +8,7 @@ TCP 是内容较多的一个协议，而本章中的 UDP 内容较少，但是�
 
 #### 6.1.1 UDP 套接字的特点
 
-通过寄信来说明 UDP 的工作原理，这是讲解 UDP 时使用的传统示例，它与 UDP 的特点完全相同。寄信前应先在信封上填好寄信人和收信人的地址，之后贴上邮票放进邮筒即可。当然，信件的特点使我们无法确认信件是否被收到。邮寄过程中也可能发生信件丢失的情况。也就是说，信件是一种不可靠的传输方式，UDP 也是一种不可靠的数据传输方式。
+通过寄信来说明 UDP 的工作原理，这是讲解 UDP 时使用的传统示例，它与 TCP 的特点完全相同。寄信前应先在信封上填好寄信人和收信人的地址，之后贴上邮票放进邮筒即可。当然，信件的特点使我们无法确认信件是否被收到。邮寄过程中也可能发生信件丢失的情况。也就是说，信件是一种不可靠的传输方式，UDP 也是一种不可靠的数据传输方式。
 
 因为 UDP 没有 TCP 那么复杂，所以编程难度比较小，性能也比 TCP 高。在更重视性能的情况下可以选择 UDP 的传输方式。
 
@@ -89,8 +89,8 @@ addrlen: 保存参数 from 的结构体变量长度的变量地址值。
 
 代码：
 
-- [uecho_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch06/uecho_client.c)
-- [uecho_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch06/uecho_server.c)
+- [uecho_client.c](uecho_client.c)
+- [uecho_server.c](uecho_server.c)
 
 编译运行：
 
@@ -123,8 +123,8 @@ UDP 程序中，调用 sendto 函数传输数据前应该完成对套接字的�
 
 相反，UDP 是具有数据边界的下一，传输中调用 I/O 函数的次数非常重要。因此，输入函数的调用次数和输出函数的调用次数应该完全一致，这样才能保证接收全部已经发送的数据。例如，调用 3 次输出函数发送的数据必须通过调用 3 次输入函数才能接收完。通过一个例子来进行验证：
 
-- [bound_host1.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch06/bound_host1.c)
-- [bound_host2.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch06/bound_host2.c)
+- [bound_host1.c](bound_host1.c)
+- [bound_host2.c](bound_host2.c)
 
 编译运行：
 
@@ -170,9 +170,9 @@ connect(sock, (struct sockaddr *)&adr, sizeof(adr));
 
 之后就与 TCP 套接字一致，每次调用 sendto 函数时只需传递信息数据。因为已经指定了收发对象，所以不仅可以使用 sendto、recvfrom 函数，还可以使用 write、read 函数进行通信。
 
-下面的例子把之前的 [uecho_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch06/uecho_client.c) 程序改成了基于已连接 UDP 的套接字的程序，因此可以结合 [uecho_server.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch06/uecho_server.c) 程序运行。代码如下：
+下面的例子把之前的 [uecho_client.c](uecho_client.c) 程序改成了基于已连接 UDP 的套接字的程序，因此可以结合 [uecho_server.c](uecho_server.c) 程序运行。代码如下：
 
-- [uecho_con_client.c](https://github.com/riba2534/TCP-IP-NetworkNote/blob/master/ch06/uecho_con_client.c)
+- [uecho_con_client.c](uecho_con_client.c)
 
 编译运行过程与上面一样，故省略。
 
