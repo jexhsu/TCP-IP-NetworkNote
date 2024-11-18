@@ -55,7 +55,7 @@ fork 函数将创建调用的进程副本。也就是说，并非根据完全不
 
 从图中可以看出，父进程调用 fork 函数的同时复制出子进程，并分别得到 fork 函数的返回值。但复制前，父进程将全局变量 gval 增加到 11,将局部变量 lval 的值增加到 25，因此在这种状态下完成进程复制。复制完成后根据 fork 函数的返回类型区分父子进程。父进程的 lval 的值增加 1 ，但这不会影响子进程的 lval 值。同样子进程将 gval 的值增加 1 也不会影响到父进程的 gval 。因为 fork 函数调用后分成了完全不同的进程，只是二者共享同一段代码而已。接下来给出一个例子：
 
-- [fork.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/fork.c)
+- [fork.c](fork.c)
 
 ```c
 #include <stdio.h>
@@ -129,7 +129,7 @@ gcc fork.c -o fork
 
 如何向父进程传递这些值呢？操作系统不会主动把这些值传递给父进程。只有父进程主动发起请求（函数调用）的时候，操作系统才会传递该值。换言之，如果父进程未主动要求获得子进程结束状态值，操作系统将一直保存，并让子进程长时间处于僵尸进程状态。也就是说，父母要负责收回自己生的孩子。接下来的示例是创建僵尸进程：
 
-- [zombie.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/zombie.c)
+- [zombie.c](zombie.c)
 
 ```c
 #include <stdio.h>
@@ -202,7 +202,7 @@ if (WIFEXITED(status))
 
 根据以上内容，有如下示例：
 
-- [wait.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/wait.c)
+- [wait.c](wait.c)
 
 ```c
 #include <stdio.h>
@@ -276,7 +276,7 @@ options: 传递头文件 sys/wait.h 声明的常量 WNOHANG ,即使没有终止�
 
 以下是 waitpid 的使用示例：
 
-- [waitpid.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/waitpid.c)
+- [waitpid.c](waitpid.c)
 
 ```c
 #include <stdio.h>
@@ -390,7 +390,7 @@ unsigned int alarm(unsigned int seconds);
 
 如果调用该函数的同时向它传递一个正整型参数，相应时间后（以秒为单位）将产生 SIGALRM 信号。若向该函数传递为 0 ，则之前对 SIGALRM 信号的预约将取消。如果通过改函数预约信号后未指定该信号对应的处理函数，则（通过调用 signal 函数）终止进程，不做任何处理。
 
-- [signal.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/signal.c)
+- [signal.c](signal.c)
 
 ```c
 #include <stdio.h>
@@ -480,7 +480,7 @@ struct sigaction
 
 下面的示例是关于 sigaction 函数的使用方法。
 
-- [sigaction.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/sigaction.c)
+- [sigaction.c](sigaction.c)
 
 ```c
 #include <stdio.h>
@@ -539,7 +539,7 @@ Time out!
 
 下面利用子进程终止时产生 SIGCHLD 信号这一点，来用信号处理来消灭僵尸进程。看以下代码：
 
-- [remove_zomebie.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/remove_zomebie.c)
+- [remove_zomebie.c](remove_zomebie.c)
 
 ```c
 #include <stdio.h>
@@ -649,7 +649,7 @@ wait
 
 下面是基于多进程实现的并发的回声服务器的服务端，可以结合第四章的 [echo_client.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch04/echo_client.c) 回声客户端来运行。
 
-- [echo_mpserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpserv.c)
+- [echo_mpserv.c](echo_mpserv.c)
 
 编译运行：
 
@@ -698,7 +698,7 @@ gcc echo_mpserv.c -o eserver
 
 下面是回声客户端的 I/O 分割的代码实现：
 
-- [echo_mpclient.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c)
+- [echo_mpclient.c](echo_mpclient.c)
 
 可以配合刚才的并发服务器进行执行。
 
@@ -739,7 +739,7 @@ gcc echo_mpclient.c -o eclient
 
 3. **创建子进程时复制父进程所有内容，此时复制对象也包含套接字文件描述符。编写程序验证赋值的文件描述符整数值是否与原文件描述符数值相同。**
 
-   答：代码为多进程服务器修改而来，代码：[test_server.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/test_server.c)
+   答：代码为多进程服务器修改而来，代码：[test_server.c](test_server.c)
 
    运行截图：
 
