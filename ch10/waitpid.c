@@ -9,12 +9,12 @@ int main(int argc, char *argv[])
 
     if (pid == 0)
     {
-        sleep(15); //用 sleep 推迟子进程的执行
+        sleep(15); // 用 sleep 推迟子进程的执行
         return 24;
     }
     else
     {
-        //调用waitpid 传递参数 WNOHANG ，这样之前有没有终止的子进程则返回0
+        // 调用waitpid 传递参数 WNOHANG ，这样之前有没有终止的子进程则返回0
         while (!waitpid(-1, &status, WNOHANG))
         {
             sleep(3);

@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     int sockfd = socket(PF_INET, SOCK_STREAM, 0);
 
     pid = fork();
-    if(pid == 0)
+    if (pid == 0)
     {
         printf("Child sockfd: %d \n", sockfd);
     }
@@ -21,6 +21,6 @@ int main(int argc, char *argv[])
 
 /*
 结果：
-Parent sockfd: 3 
-Child sockfd: 3 
+Parent sockfd: 3
+Child sockfd: 3
 */

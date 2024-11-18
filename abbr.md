@@ -19,3 +19,23 @@
 | **ACK**          | Acknowledgment                | A flag used to confirm the receipt of data in TCP communication. | 用于确认接收数据的标志位，在 TCP 通信中使用。        |
 | **SEQ**          | Sequence Number               | A number used to order the segments of data in a TCP stream. | 用于按顺序排列 TCP 流中数据段的数字。                |
 | **FIN**          | Finish                        | A flag used to indicate that the sender has finished sending data and wants to close the connection. | 用于指示发送者已完成数据传输并希望关闭连接的标志位。 |
+|EOF|End of File|||
+|hostent|Host Entry|||
+|WIFEXITED|Wait if Exited|||
+|WEXITSTATUS|Wait Exit Status|||
+|WNOHANG|Wait No Hang|||
+|SIGALRM|Signal Alarm|||
+|SIGINT|Signal Interrupt|||
+|SIGCHLD|Signal Child|||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
