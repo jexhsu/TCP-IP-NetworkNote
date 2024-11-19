@@ -194,7 +194,7 @@ gcc echo_storeserv.c -o serv
 
 客户端
 
-- [echo_mpclient.c](echo_storeclient.c)
+- [echo_storeclient.c](echo_storeclient.c)
 
 编译运行：
 
