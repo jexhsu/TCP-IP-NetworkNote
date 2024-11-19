@@ -49,10 +49,11 @@ int main(int argc, char *argv[])
         FILE *fp = fopen("echomsg.txt", "wt");
         char msgbuf[BUF_SIZE];
         int i, len;
-        for (int i = 0; i < 10; i++)
+        while (1)
         {
             len = read(fds[0], msgbuf, BUF_SIZE);
             fwrite((void *)msgbuf, 1, len, fp);
+            fflush(fp); // Flush the file stream to ensure immediate output
         }
         fclose(fp);
         return 0;
