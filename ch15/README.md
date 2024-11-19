@@ -31,11 +31,11 @@
 
 下面是利用系统函数的示例：
 
-- [syscpy.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/syscpy.c)
+- [syscpy.c](syscpy.c)
 
 下面是使用标准 I/O 函数复制文件
 
-- [stdcpy.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/stdcpy.c)
+- [stdcpy.c](stdcpy.c)
 
 对于以上两个代码进行测试，明显基于标准 I/O 函数的代码跑的更快
 
@@ -65,7 +65,7 @@ mode ： 将要创建的 FILE 结构体指针的模式信息
 
 以下为示例：
 
-- [desto.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/desto.c)
+- [desto.c](desto.c)
 
 ```c
 #include <stdio.h>
@@ -115,7 +115,7 @@ int fileno(FILE *stream);
 
 示例：
 
-- [todes.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/todes.c)
+- [todes.c](todes.c)
 
 ```c
 #include <stdio.h>
@@ -146,8 +146,8 @@ int main()
 
 代码如下：
 
-- [echo_client.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/echo_client.c)
-- [echo_stdserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch15/echo_stdserv.c)
+- [echo_client.c](echo_client.c)
+- [echo_stdserv.c](echo_stdserv.c)
 
 编译运行：
 
