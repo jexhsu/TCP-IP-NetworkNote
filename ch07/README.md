@@ -80,9 +80,10 @@ howto: 传递断开方式信息
 编译运行：
 
 ```shell
-gcc file_client.c -o fclient
 gcc file_server.c -o fserver
 ./fserver 9190
+
+gcc file_client.c -o fclient
 ./fclient 127.0.0.1 9190
 ```
 
