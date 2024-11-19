@@ -192,7 +192,11 @@ gcc echo_storeserv.c -o serv
 ./serv 9190
 ```
 
-此服务端配合第 10 章的客户端 [echo_mpclient.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch10/echo_mpclient.c) 使用，运行结果如下图:
+客户端
+
+- [echo_mpclient.c](echo_mpclient.c)
+
+运行结果如下图:
 
 ![](https://s2.ax1x.com/2019/01/22/kFUCct.png)
 
