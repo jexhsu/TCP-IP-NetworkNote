@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
     char buf[BUF_SIZE];
     struct sockaddr_in serv_addr;
 
-    FILE *readfp;
-    FILE *writefp;
+    FILE *readFP;
+    FILE *writeFP;
 
     sock = socket(PF_INET, SOCK_STREAM, 0);
     memset(&serv_addr, 0, sizeof(serv_addr));
@@ -22,21 +22,21 @@ int main(int argc, char *argv[])
     serv_addr.sin_port = htons(atoi(argv[2]));
 
     connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
-    readfp = fdopen(sock, "r");
-    writefp = fdopen(sock, "w");
+    readFP = fdopen(sock, "r");
+    writeFP = fdopen(sock, "w");
 
     while (1)
     {
-        if (fgets(buf, sizeof(buf), readfp) == NULL)
+        if (fgets(buf, sizeof(buf), readFP) == NULL)
             break;
         fputs(buf, stdout);
         fflush(stdout);
     }
 
-    fputs("FROM CLIENT: Thank you \n", writefp);
-    fflush(writefp);
-    fclose(writefp);
-    fclose(readfp);
+    fputs("FROM CLIENT: Thank you \n", writeFP);
+    fflush(writeFP);
+    fclose(writeFP);
+    fclose(readFP);
 
     return 0;
 }

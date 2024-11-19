@@ -9,8 +9,8 @@
 int main(int argc, char *argv[])
 {
     int serv_sock, clnt_sock;
-    FILE *readfp;
-    FILE *writefp;
+    FILE *readFP;
+    FILE *writeFP;
 
     struct sockaddr_in serv_adr, clnt_adr;
     socklen_t clnt_adr_sz;
@@ -27,17 +27,17 @@ int main(int argc, char *argv[])
     clnt_adr_sz = sizeof(clnt_adr);
     clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &clnt_adr_sz);
 
-    readfp = fdopen(clnt_sock, "r");
-    writefp = fdopen(clnt_sock, "w");
+    readFP = fdopen(clnt_sock, "r");
+    writeFP = fdopen(clnt_sock, "w");
 
-    fputs("FROM SERVER: Hi~ client? \n", writefp);
-    fputs("I love all of the world \n", writefp);
-    fputs("You are awesome! \n", writefp);
-    fflush(writefp);
+    fputs("FROM SERVER: Hi~ client? \n", writeFP);
+    fputs("I love all of the world \n", writeFP);
+    fputs("You are awesome! \n", writeFP);
+    fflush(writeFP);
 
-    fclose(writefp);
-    fgets(buf, sizeof(buf), readfp);
+    fclose(writeFP);
+    fgets(buf, sizeof(buf), readFP);
     fputs(buf, stdout);
-    fclose(readfp);
+    fclose(readFP);
     return 0;
 }

@@ -41,8 +41,8 @@
 |  **SOL_SOCKET**   |     Socket Options Level      |     Socket Options Level      |     套接字选项级别      |
 | **SO_BROADCAST**  |    Socket Broadcast Option    |    Socket Broadcast Option    |     套接字广播选项      |
 |    **fileno**     |          File Number          |          File Number          |        文件编号         |
-|                   |                               |                               |                         |
-|                   |                               |                               |                         |
+|    **SHUT_RD**    |                               |                               |                         |
+|    **SHUT_WR**    |                               |                               |                         |
 |                   |                               |                               |                         |
 |                   |                               |                               |                         |
 |                   |                               |                               |                         |

@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
 
     struct sockaddr_in serv_adr, clnt_adr;
     socklen_t clnt_adr_sz;
-    FILE *readFD;
-    FILE *writeFD;
+    FILE *readFP;
+    FILE *writeFP;
 
     if (argc != 2)
     {
@@ -50,17 +50,17 @@ int main(int argc, char *argv[])
         else
             printf("Connect client %d \n", i + 1);
 
-        readFD = fdopen(clnt_sock, "r");
-        writeFD = fdopen(clnt_sock, "w");
-        while (!feof(readFD))
+        readFP = fdopen(clnt_sock, "r");
+        writeFP = fdopen(clnt_sock, "w");
+        while (!feof(readFP))
         {
-            fgets(message, BUF_SIZE, readFD);
-            fputs(message, writeFD);
-            fflush(writeFD);
+            fgets(message, BUF_SIZE, readFP);
+            fputs(message, writeFP);
+            fflush(writeFP);
         }
 
-        fclose(readFD);
-        fclose(writeFD);
+        fclose(readFP);
+        fclose(writeFP);
     }
     close(serv_sock);
     return 0;
