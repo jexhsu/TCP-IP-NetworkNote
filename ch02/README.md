@@ -101,17 +101,13 @@ int udp_socket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 - [tcp_client.c](tcp_client.c)
 - [tcp_server.c](tcp_server.c)
 
-编译：
+编译运行：
 
 ```shell
-gcc tcp_client.c -o hclient
 gcc tcp_server.c -o hserver
-```
-
-运行：
-
-```shell
 ./hserver 9190
+
+gcc tcp_client.c -o hclient
 ./hclient 127.0.0.1 9190
 ```
 
