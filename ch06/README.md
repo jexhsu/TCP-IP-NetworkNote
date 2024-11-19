@@ -95,9 +95,10 @@ addrlen: 保存参数 from 的结构体变量长度的变量地址值。
 编译运行：
 
 ```shell
-gcc uecho_client.c -o uclient
 gcc uecho_server.c -o userver
 ./server 9190
+
+gcc uecho_client.c -o uclient
 ./uclient 127.0.0.1 9190
 ```
 
@@ -129,9 +130,10 @@ UDP 程序中，调用 sendto 函数传输数据前应该完成对套接字的�
 编译运行：
 
 ```shell
-gcc bound_host1.c -o host1
 gcc bound_host2.c -o host2
 ./host1 9190
+
+gcc bound_host1.c -o host1
 ./host2 127.0.0.1 9190
 ```
 
