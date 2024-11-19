@@ -56,8 +56,11 @@ MSG_OOB 可选项用于创建特殊发送方法和通道以发送紧急消息。
 编译运行：
 
 ```shell
-gcc oob_send.c -o send
 gcc oob_recv.c -o recv
+./recv 9190
+
+gcc oob_send.c -o send
+./send 127.0.0.1 9190
 ```
 
 运行结果：
@@ -130,8 +133,9 @@ TCP 数据包实际包含更多信息。TCP 头部包含如下两种信息：
 
 ```
 gcc peek_recv.c -o recv
-gcc peek_send.c -o send
 ./recv 9190
+
+gcc peek_send.c -o send
 ./send 127.0.0.1 9190
 ```
 
