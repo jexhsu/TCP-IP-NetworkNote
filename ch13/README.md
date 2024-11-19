@@ -50,8 +50,8 @@ send & recv 函数的可选项意义：
 
 MSG_OOB 可选项用于创建特殊发送方法和通道以发送紧急消息。下面为 MSG_OOB 的示例代码：
 
-- [oob_recv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/oob_recv.c)
-- [oob_send.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/oob_send.c)
+- [oob_recv.c](oob_recv.c)
+- [oob_send.c](oob_send.c)
 
 编译运行：
 
@@ -123,8 +123,8 @@ TCP 数据包实际包含更多信息。TCP 头部包含如下两种信息：
 
 同时设置 MSG_PEEK 选项和 MSG_DONTWAIT 选项，以验证输入缓冲是否存在接收的数据。设置 MSG_PEEK 选项并调用 recv 函数时，即使读取了输入缓冲的数据也不会删除。因此，该选项通常与 MSG_DONTWAIT 合作，用于以非阻塞方式验证待读数据存在与否。下面的示例是二者的含义：
 
-- [peek_recv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/peek_recv.c)
-- [peek_send.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/peek_send.c)
+- [peek_recv.c](peek_recv.c)
+- [peek_send.c](peek_send.c)
 
 编译运行：
 
@@ -180,7 +180,7 @@ writev 的第一个参数，是文件描述符，因此向控制台输出数据�
 
 下面是 writev 函数的使用方法：
 
-- [writev.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/writev.c)
+- [writev.c](writev.c)
 
 ```c
 #include <stdio.h>
@@ -233,7 +233,7 @@ iovcnt: 第二个参数中数组的长度
 
 下面是示例代码：
 
-- [readv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch13/readv.c)
+- [readv.c](readv.c)
 
 ```c
 #include <stdio.h>
