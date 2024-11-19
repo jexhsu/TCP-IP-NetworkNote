@@ -171,17 +171,13 @@ addrlen: 第二个结构体参数 servaddr 变量的字节长度
 - [echo_server.c](echo_server.c)
 - [echo_client.c](echo_client.c)
 
-编译:
+编译运行:
 
 ```shell
-gcc echo_client.c -o eclient
 gcc echo_server.c -o eserver
-```
-
-分别运行:
-
-```shell
 ./eserver 9190
+
+gcc echo_client.c -o eclient
 ./eclient 127.0.0.1 9190
 ```
 
