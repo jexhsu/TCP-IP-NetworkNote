@@ -26,7 +26,7 @@ filedes[1]: 通过管道传输数据时使用的文件描述符，即管道入�
 
 父进程调用函数时将创建管道，同时获取对应于出入口的文件描述符，此时父进程可以读写同一管道。但父进程的目的是与子进程进行数据交换，因此需要将入口或出口中的 1 个文件描述符传递给子进程。下面的例子是关于该函数的使用方法：
 
-- [pipe1.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/pipe1.c)
+- [pipe1.c](pipe1.c)
 
 ```c
 #include <stdio.h>
@@ -80,7 +80,7 @@ Who are you?
 
 下面是双向通信的示例：
 
-- [pipe2.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/pipe2.c)
+- [pipe2.c](pipe2.c)
 
 ```c
 #include <stdio.h>
@@ -138,7 +138,7 @@ Child proc output: Thank you for your message
 
 下面采用上述模型改进 `pipe2.c` 。
 
-- [pipe3.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/pipe3.c)
+- [pipe3.c](pipe3.c)
 
 ```c
 #include <stdio.h>
@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
 
 实现该任务将创建一个新进程，从向客户端提供服务的进程读取字符串信息，下面是代码：
 
-- [echo_storeserv.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch11/echo_storeserv.c)
+- [echo_storeserv.c](echo_storeserv.c)
 
 编译运行：
 
