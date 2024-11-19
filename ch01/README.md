@@ -90,19 +90,15 @@ int accept(int sockfd,struct sockaddr *addr,socklen_t *addrlen);
 
 客户端代码请参见：[hello_client.c](hello_client.c)
 
-**编译**：
+编译运行：
 
 分别对客户端和服务端程序进行编译：
 
 ```shell
 gcc hello_server.c -o hserver
-gcc hello_client.c -o hclient
-```
-
-**运行**：
-
-```shell
 ./hserver 9190
+
+gcc hello_client.c -o hclient
 ./hclient 127.0.0.1 9190
 ```
 
