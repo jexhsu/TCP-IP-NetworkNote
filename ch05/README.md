@@ -75,8 +75,11 @@ while (1)
 编译：
 
 ```shell
-gcc My_op_client.c -o myclient
 gcc My_op_server.c -o myserver
+./myserver 9190
+
+gcc My_op_client.c -o myclient
+./myclient 127.0.0.1 9190
 ```
 
 结果：
@@ -92,17 +95,13 @@ gcc My_op_server.c -o myserver
 
 阅读代码要注意一下，`int*`与`char`之间的转换。TCP 中不存在数据边界。
 
-编译：
+编译运行：
 
 ```shell
-gcc op_client.c -o opclient
 gcc op_server.c -o opserver
-```
-
-运行:
-
-```shell
 ./opserver 9190
+
+gcc op_client.c -o opclient
 ./opclient 127.0.0.1 9190
 ```
 
