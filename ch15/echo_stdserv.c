@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
 
     struct sockaddr_in serv_adr, clnt_adr;
     socklen_t clnt_adr_sz;
-    FILE *readfp;
-    FILE *writefp;
+    FILE *readFD;
+    FILE *writeFD;
 
     if (argc != 2)
     {
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
         error_handling("listen() error");
 
     clnt_adr_sz = sizeof(clnt_adr);
-    //调用 5 次 accept 函数，共为 5 个客户端提供服务
+    // 调用 5 次 accept 函数，共为 5 个客户端提供服务
     for (i = 0; i < 5; i++)
     {
         clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &clnt_adr_sz);
@@ -50,17 +50,17 @@ int main(int argc, char *argv[])
         else
             printf("Connect client %d \n", i + 1);
 
-        readfp = fdopen(clnt_sock, "r");
-        writefp = fdopen(clnt_sock, "w");
-        while (!feof(readfp))
+        readFD = fdopen(clnt_sock, "r");
+        writeFD = fdopen(clnt_sock, "w");
+        while (!feof(readFD))
         {
-            fgets(message, BUF_SIZE, readfp);
-            fputs(message, writefp);
-            fflush(writefp);
+            fgets(message, BUF_SIZE, readFD);
+            fputs(message, writeFD);
+            fflush(writeFD);
         }
 
-        fclose(readfp);
-        fclose(writefp);
+        fclose(readFD);
+        fclose(writeFD);
     }
     close(serv_sock);
     return 0;

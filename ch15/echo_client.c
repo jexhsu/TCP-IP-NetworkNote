@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
     char message[BUF_SIZE];
     int str_len;
     struct sockaddr_in serv_adr;
-    FILE *readfp;
-    FILE *writefp;
+    FILE *readFD;
+    FILE *writeFD;
     if (argc != 3)
     {
         printf("Usage : %s <IP> <port>\n", argv[0]);
@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
         error_handling("connect() error!");
     else
         puts("Connected...........");
-    readfp = fdopen(sock, "r");
-    writefp = fdopen(sock, "w");
+    readFD = fdopen(sock, "r");
+    writeFD = fdopen(sock, "w");
     while (1)
     {
         fputs("Input message(Q to quit): ", stdout);
@@ -45,13 +45,13 @@ int main(int argc, char *argv[])
         if (!strcmp(message, "q\n") || !strcmp(message, "Q\n"))
             break;
 
-        fputs(message, writefp);
-        fflush(writefp);
-        fgets(message, BUF_SIZE, readfp);
+        fputs(message, writeFD);
+        fflush(writeFD);
+        fgets(message, BUF_SIZE, readFD);
         printf("Message from server: %s", message);
     }
-    fclose(writefp);
-    fclose(readfp);
+    fclose(writeFD);
+    fclose(readFD);
     return 0;
 }
 
