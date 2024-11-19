@@ -194,7 +194,14 @@ gcc echo_storeserv.c -o serv
 
 客户端
 
-- [echo_mpclient.c](echo_mpclient.c)
+- [echo_mpclient.c](echo_storeclient.c)
+
+编译运行：
+
+```shell
+gcc echo_storeclient.c -o clien
+./clien 127.0.0.1 9190
+```
 
 运行结果如下图:
 
