@@ -76,8 +76,8 @@ struct ip_mreq
 
 下面是两个代码：
 
-- [news_sender.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_sender.c)
-- [news_receiver.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_receiver.c)
+- [news_sender.c](news_sender.c)
+- [news_receiver.c](news_receiver.c)
 
 编译运行：
 
@@ -125,8 +125,8 @@ setsockopt(send_sock,SOL_SOCKET,SO_BROADCAST,(void*)&bcast,sizeof(bcast));
 
 下面是广播数据的 Sender 和 Receiver 的代码：
 
-- [news_sender_brd.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_sender_brd.c)
-- [news_receiver_brd.c](https://github.com/jexhsu/TCP-IP-NetworkNote/blob/master/ch14/news_receiver_brd.c)
+- [news_sender_brd.c](news_sender_brd.c)
+- [news_receiver_brd.c](news_receiver_brd.c)
 
 编译运行：
 
