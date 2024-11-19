@@ -44,11 +44,11 @@ shutdown(sock,SHUT_WR);
 编译运行：
 
 ```shell
-gcc sep_clnt.c -o clnt
-./clnt 127.0.0.1 9190
-
 gcc sep_serv.c -o serv
 ./serv 9190
+
+gcc sep_clnt.c -o clnt
+./clnt 127.0.0.1 9190
 ```
 
 结果：
