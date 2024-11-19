@@ -83,8 +83,9 @@ struct ip_mreq
 
 ```
 gcc news_sender.c -o sender
-gcc news_receiver.c -o receiver
 ./sender 224.1.1.2 9190
+
+gcc news_receiver.c -o receiver
 ./receiver 224.1.1.2 9190
 ```
 
@@ -132,9 +133,10 @@ setsockopt(send_sock,SOL_SOCKET,SO_BROADCAST,(void*)&bcast,sizeof(bcast));
 
 ```
 gcc news_receiver_brd.c -o receiver
+./receiver 9190
+
 gcc news_sender_brd.c -o sender
 ./sender 255.255.255.255 9190
-./receiver 9190
 ```
 
 结果：
