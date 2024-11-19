@@ -208,7 +208,7 @@ int main(int argc, char *argv[])
 
 ```shell
 gcc writev.c -o writev
-./writevi
+./writev
 ```
 
 结果：
